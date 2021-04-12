@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load  static %}
+{% load bootstrap4 %}
+{#<script src="{% static 'javascrpit.js'%}"></script>#}
+{% block body %}
+    <link rel="stylesheet" href="{% static 'styles1.css' %}"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="card px-3">
+                    <div class="card-body">
+                        <h4 class="mastermind" > Awesome To do list</h4>
+                        <form  method="POST">
+                             {% csrf_token %}
+
+                            {% bootstrap_form form %}
+                            {% buttons %}
+                                 <div class="add-items d-flex">
+                                 <button type="submit" class="add btn btn-primary font-weight-bold todo-list-add-btn">ADD</button>
+
+
+                            {% endbuttons %}
+                        </form>
+                        <div class="list-wrapper">
+                            <ul class="d-flex flex-column-reverse todo-list">
+                                {% for Todo in Todo_list %}
+                                <div class = >
+                                <li>
+                                    <a class="btn btn-sm btn-info" href="{% url 'update_task' Todo.id %}">update</a>
+                                    <a class="btn btn-sm btn-danger" href="{% url 'delete' Todo.id %}">delete</a>
+                                    {% if Todo.complete == True  %}
+                                        <li class="completed">
+                                   <div class="form-check"> <label  style = "font-size:40px;" class="form-check-label"> <input class="checkbox" type="checkbox" checked=""> {{ Todo }}<i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                                     </li>
+                                    {% else %}
+                                    <div class="form-check"> <label class="form-check-label">  {{ Todo.TO_DO }} <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                                    {% endif %}
+                                </li>
+                                   </div>
+                                {% endfor %}
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
